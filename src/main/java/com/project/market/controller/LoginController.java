@@ -15,7 +15,6 @@ public class LoginController {
     @Autowired
     private SignUpRepository signUpRepository;
 
-
     @GetMapping("/login")
     public String login() {
         return "Login";
@@ -23,6 +22,10 @@ public class LoginController {
 
     @PostMapping("/login")
     public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+
+        if(email.equals("admin@gmail.com") && password.equals("i am the Admin")) {
+            return "AdminBoard";
+        }
 
         SignUpForm signUpForm = signUpRepository.findByEmailAndPassword(email, password);
 

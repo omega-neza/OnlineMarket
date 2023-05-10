@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Product</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>Edit Product</h1>
+  <form th:action="@{/products/update/{id}(id=${product.id})}" method="post" enctype="multipart/form-data">
+
+  <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" th:value="${product.name}" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" class="form-control" id="description" name="description" th:value="${product.description}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="pricePerUnit">Price Per Unit:</label>
+      <input type="number" class="form-control" id="pricePerUnit" name="pricePerUnit" step="0.01" th:value="${product.pricePerUnit}" required>
+    </div>
+    <div class="form-group">
+      <label for="category">Category:</label>
+      <input type="text" class="form-control" id="category" name="category" th:value="${product.category}" required>
+    </div>
+    <div class="form-group">
+      <label for="pic">Pic:</label>
+      <input type="file" class="form-control" id="pic" name="pic" th:value="${product.pic}" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Update Product</button>
+    <a class="btn btn-secondary" th:href="@{/AllProducts}">Cancel</a>
+  </form>
+</div>
+</body>
+</html>
+
+
+
+
