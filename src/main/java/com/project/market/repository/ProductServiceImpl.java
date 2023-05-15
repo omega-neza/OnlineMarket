@@ -61,6 +61,20 @@ public class ProductServiceImpl implements ProductService {
         return null;
     }
 
+    @Override
+    public List<Products> searchByName(String query) {
+        return null;
+    }
+    public List<Products> searchProductsByName(String name) {
+        return productsRepository.findByNameContainingIgnoreCase(name);
+    }
+
+    @Override
+    public List<Products> searchProducts(String keyword) {
+        List<Products> productList = productsRepository.findByNameContainingIgnoreCase(keyword);
+        return productList;
+    }
+
     private Products mapToProducts(ProductsDto products) throws IOException {
         Products product = Products.builder()
                 .id(products.getId())

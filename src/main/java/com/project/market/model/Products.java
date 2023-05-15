@@ -1,11 +1,11 @@
 package com.project.market.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import jdk.jshell.Snippet;
 import lombok.Builder;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-
+import java.util.List;
 
 @Builder
 
@@ -21,16 +21,20 @@ public class Products {
     @Lob
     private byte[] pic;
 
+    @OneToMany(mappedBy = "product")
+    private List<Orders> orders;
+
     public Products() {
     }
 
-    public Products(long id, String name, String description, BigDecimal pricePerUnit, String category, byte[] pic) {
+    public Products(long id, String name, String description, BigDecimal pricePerUnit, String category, byte[] pic, List<Orders> orders) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.pricePerUnit = pricePerUnit;
         this.category = category;
         this.pic = pic;
+        this.orders = orders;
     }
 
     public long getId() {
@@ -80,6 +84,12 @@ public class Products {
     public void setPic(byte[] pic) {
         this.pic = pic;
     }
+
+    public List<Orders> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Orders> orders) {
+        this.orders = orders;
+    }
 }
-
-

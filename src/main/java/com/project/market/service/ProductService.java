@@ -24,6 +24,8 @@ public interface ProductService {
 
     List<CustomerDto> getAllCustomers();
 
+    public List<Products> searchByName(String query);
 
-
+    List<Products> searchProducts(String keyword);
+    List<Products> searchProductsByName(String name);
 }

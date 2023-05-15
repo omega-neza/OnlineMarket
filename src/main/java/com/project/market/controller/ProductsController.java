@@ -4,6 +4,7 @@ import com.project.market.dto.ProductsDto;
 import com.project.market.model.Products;
 import com.project.market.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,20 +22,16 @@ public class ProductsController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/product")
+
+    @GetMapping("/add_product")
     public String showAddProductForm(Model model) {
         model.addAttribute("product", new Products());
         return "RegisterProduct";
     }
 
     @PostMapping("/add_product")
-    public String addProduct(@Valid @ModelAttribute("product") Products product, BindingResult bindingResult, @RequestParam("pic") MultipartFile file, Model model) throws IOException {
-        if (bindingResult.hasErrors()) {
-            return "RegisterProduct";
-        }
-        product.setPic(file.getBytes());
+    public String addProduct(@ModelAttribute("product") Products product) {
         productService.addProduct(product);
-        model.addAttribute("product", product);
         return "redirect:/AllProducts";
     }
 
@@ -69,5 +66,21 @@ public class ProductsController {
     public String adminBoard() {
         return "AdminBoard";
     }
+
+
+
+
+    @RequestMapping(value = "/product/{id}/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    @ResponseBody
+    public byte[] getProductImage(@PathVariable("id") Long id) throws IOException {
+        Products product = productService.getProductById(id);
+        return product.getPic();
+    }
+
+    @GetMapping("/search")
+    public String search() {
+        return "Categories";
+    }
+
 
 }

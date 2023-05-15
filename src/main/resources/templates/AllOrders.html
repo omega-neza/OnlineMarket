@@ -2,9 +2,66 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>customers</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
+<h1>All orders</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Product Id</th>
+        <th>Order Date</th>
+        <th>Total Price</th>
+        <th>Delivery date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.product.id}"></td>
+        <td th:text="${order.orderDate}"></td>
+        <td th:text="${order.totalPrice}"></td>
+        <td th:text="${order.deliveryDate}"></td>
+        <td>
 
+            <a th:href="@{/delete_order/{id}(id=${order.id})}" class="button">Delete</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
 </body>
 </html>

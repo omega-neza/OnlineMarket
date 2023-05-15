@@ -27,4 +27,8 @@ public class SignUpController {
         model.addAttribute("signUpForm", signUpForm);
         return "Login";
     }
+    @GetMapping("/")
+    public String index() {
+        return "Intro";
+    }
 }

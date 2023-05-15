@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buy Product</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="container mt-5">
+    <h1>Buy Product</h1>
+    <form method="POST" action="/buy">
+        <div class="form-group">
+            <label for="name">Product Name:</label>
+            <input type="text" class="form-control" id="name" name="name" th:value="${product.name}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price Per Unit:</label>
+            <input type="number" class="form-control" id="price" name="price" th:value="${product.pricePerUnit}" readonly>
+        </div>
+
+        <div class="form-group">
+            <label for="amount">Amount:</label>
+            <input type="number" class="form-control" id="amount" name="amount" min="1" max="100" required>
+        </div>
+
+        <div class="form-group">
+            <label for="total">Total Price:</label>
+            <input type="number" class="form-control" id="total" name="totalPrice" >
+        </div>
+
+        <div class="form-group">
+            <label for="delivery">Delivery Date:</label>
+            <input type="date" class="form-control" id="delivery" name="deliveryDate" readonly>
+
+        </div>
+        <div>
+            <input type="hidden" name="productId" th:value="${product.id}">
+            <input type="hidden" id="total_hidden" name="total" value="">
+            <input type="hidden" id="delivery_hidden" name="delivery" value="">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Buy Now</button>
+    </form>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    // Get references to the original and hidden fields
+    const totalInput = document.getElementById('total');
+    const deliveryInput = document.getElementById('delivery');
+    const totalHiddenInput = document.getElementById('total_hidden');
+    const deliveryHiddenInput = document.getElementById('delivery_hidden');
+
+    // Update the value of the hidden fields when the original fields change
+    totalInput.addEventListener('input', () => {
+        totalHiddenInput.value = totalInput.value;
+    });
+    deliveryInput.addEventListener('input', () => {
+        deliveryHiddenInput.value = deliveryInput.value;
+    });
+
+</script>
+<script>
+    // Update total price when amount is changed
+    $('#amount').on('input', function () {
+        const amount = $(this).val();
+        const price = $('#price').val();
+        const totalPrice = amount * price;
+        $('#total').val(totalPrice);
+    });
+
+    // Set delivery date to 10 days from now
+    const deliveryDate = new Date();
+    deliveryDate.setDate(deliveryDate.getDate() + 10);
+    const formattedDeliveryDate = deliveryDate.toISOString().split('T')[0];
+    $('#delivery').val(formattedDeliveryDate);
+
+
+</script>
+
+</body>
+</html>
